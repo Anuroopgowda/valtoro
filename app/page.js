@@ -8,6 +8,7 @@ const products = [
   { name: "Olive Green", img: "/images/p-olive.jpg" },
   { name: "Print Series", img: "/images/p-camo.jpg" },
   { name: "Print Series", img: "/images/p-geo.jpg" },
+  { name: "Print Series", img: "/images/p-geo1.jpg" },
 ];
 
 const features = [
@@ -23,8 +24,9 @@ const Svg = ({ children, size = 22 }) => (
 
 export default function Home() {
   const track = useRef(null);
-  const [cart, setCart] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const drag = useRef({ active: false, startX: 0, startLeft: 0 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -34,6 +36,27 @@ export default function Home() {
   }, []);
 
   const scroll = (dir) => track.current?.scrollBy({ left: dir * 480, behavior: "smooth" });
+
+  // Mouse drag-to-scroll (touch devices use native swipe)
+  const onPointerDown = (e) => {
+    if (e.pointerType !== "mouse") return;
+    const el = track.current;
+    drag.current = { active: true, startX: e.clientX, startLeft: el.scrollLeft };
+    el.setPointerCapture(e.pointerId);
+    setDragging(true);
+  };
+
+  const onPointerMove = (e) => {
+    if (!drag.current.active) return;
+    track.current.scrollLeft = drag.current.startLeft - (e.clientX - drag.current.startX);
+  };
+
+  const endDrag = (e) => {
+    if (!drag.current.active) return;
+    drag.current.active = false;
+    track.current?.releasePointerCapture?.(e.pointerId);
+    setDragging(false);
+  };
 
   return (
     <>
@@ -50,10 +73,6 @@ export default function Home() {
         <div className="actions">
           <button aria-label="Search"><Svg><circle cx="11" cy="11" r="7" /><path d="M21 21l-5-5" /></Svg></button>
           <button aria-label="Account"><Svg><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></Svg></button>
-          <button aria-label="Cart" className="cart" onClick={() => setCart(cart + 1)}>
-            <Svg><path d="M3 4h3l3 12h10l2-8H7" /><circle cx="10" cy="20" r="1" /><circle cx="18" cy="20" r="1" /></Svg>
-            <span className="badge">{cart}</span>
-          </button>
         </div>
       </header>
 
@@ -85,10 +104,18 @@ export default function Home() {
         </div>
         <div className="carousel">
           <button className="arrow left" onClick={() => scroll(-1)} aria-label="Previous">‹</button>
-          <div className="track" ref={track}>
+          <div
+            className={`track ${dragging ? "dragging" : ""}`}
+            ref={track}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            onPointerLeave={endDrag}
+          >
             {products.map((p, i) => (
               <article key={i} className="card">
-                <img src={p.img} alt={p.name} />
+                <img src={p.img} alt={p.name} draggable={false} />
                 <h3>{p.name}</h3>
               </article>
             ))}

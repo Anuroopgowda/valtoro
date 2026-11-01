@@ -16,8 +16,6 @@ img{display:block;max-width:100%}
 .nav nav a{padding:10px 0;border-bottom:2px solid transparent}
 .nav nav a.active{color:var(--gold);border-color:var(--gold)}
 .actions{display:flex;justify-content:flex-end;gap:clamp(16px,1.7vw,26px)}
-.cart{position:relative}
-.badge{position:absolute;top:-9px;right:-11px;background:var(--gold);color:#000;border-radius:50%;width:16px;height:16px;font-size:.65rem;display:grid;place-items:center}
 
 /* HERO: sized from the reference proportions (photo = 836x378 at 1536px wide) */
 .hero{position:relative;display:flex;justify-content:flex-end;background:radial-gradient(circle at 22% 55%,#1e1e1e,#080808 70%)}
@@ -36,15 +34,18 @@ img{display:block;max-width:100%}
 .feature strong{display:block;font-weight:400;font-size:max(11px,.8vw);letter-spacing:.06em;text-transform:uppercase}
 .feature span{font-size:max(12px,.85vw);color:#b5ab99}
 
+/* COLLECTION: drag with mouse, swipe on touch */
 .collection{background:var(--cream);color:#111;padding:1.8vw 4.4vw 1.9vw}
 .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1vw}
 .row h2{font-size:clamp(20px,1.7vw,28px);font-weight:600}
 .row a{font-size:max(13px,.9vw)}
 .carousel{position:relative}
-.track{display:flex;gap:.9vw;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px}
+.track{display:flex;gap:.9vw;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px;
+  cursor:grab;touch-action:pan-x pan-y;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .track::-webkit-scrollbar{display:none}
+.track.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
 .card{flex:0 0 calc((100% - 4.5vw)/6);min-width:170px;scroll-snap-align:start;background:#f6f2e7;border:1px solid #ebe5d8;border-radius:14px;padding:.9vw .6vw .8vw;text-align:center}
-.card img{width:100%;height:auto;border-radius:10px}
+.card img{width:100%;height:auto;border-radius:10px;-webkit-user-drag:none;user-select:none;pointer-events:none}
 .card h3{font-weight:400;font-size:max(13px,.95vw);margin-top:.3vw}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 2px 12px #0003;font-size:1.7rem;z-index:2;color:#111}
 .arrow.left{left:-3.2vw}.arrow.right{right:-3.2vw}
@@ -73,6 +74,7 @@ img{display:block;max-width:100%}
   .features{gap:18px;padding:22px 20px}
   .feature{border:0;padding:0 10px}
   .collection{padding:24px 20px}
+  .track{gap:12px;scroll-padding-left:2px}
   .card{flex-basis:44%;padding:10px 8px}
   .card h3{font-size:14px}
   .arrow{display:none}
