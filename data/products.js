@@ -7,5 +7,7 @@ export const products = [
   { id: "vt-004", name: "Olive Green",         image: "/images/p-olive.jpg", price: 499, originalPrice: 799,  rating: 4.6, reviews: 164, category: "Everyday" },
   { id: "vt-005", name: "Camo Print Series",   image: "/images/p-camo.jpg",  price: 599, originalPrice: 999,  rating: 4.8, reviews: 276, category: "Print Series" },
   { id: "vt-006", name: "Geo Print Series",    image: "/images/p-geo.jpg",   price: 599, originalPrice: 999,  rating: 4.7, reviews: 203, category: "Print Series" },
-  { id: "vt-007", name: "Geo Print Series II", image: "/images/p-geo1.jpg",  price: 649, originalPrice: 999,  rating: 4.7, reviews: 121, category: "Print Series" },
+  { id: "vt-007", name: "Geo Print Series II", image: "/images/p-black.jpg",  price: 649, originalPrice: 999,  rating: 4.7, reviews: 121, category: "Print Series" },
+  { id: "vt-008", name: "Premium 1", image: "/images/p-prem1.jpg",  price: 649, originalPrice: 999,  rating: 4.9, reviews: 121, category: "Print Series" },
+  { id: "vt-009", name: "Premium 2", image: "/images/p-prem2.jpg",  price: 649, originalPrice: 999,  rating: 4.9, reviews: 121, category: "Print Series" },
 ];
