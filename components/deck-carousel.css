@@ -1,0 +1,599 @@
+
+/* =====================================
+   SECTION
+===================================== */
+
+.deck-section {
+  position: relative;
+  overflow: hidden;
+
+  padding: clamp(35px, 4vw, 60px) 0 35px;
+
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    #fffaf1 0%,
+    #efe4cf 55%,
+    #dccdb0 100%
+  );
+
+  color: #16130e;
+}
+
+.deck-head {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
+
+.deck-eyebrow {
+  letter-spacing: .35em;
+  font-size: .68rem;
+  color: #a07a3d;
+  text-transform: uppercase;
+}
+
+.deck-title {
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 38px);
+  margin-top: 7px;
+  letter-spacing: .02em;
+}
+
+.deck-sub {
+  color: #6d6556;
+  margin-top: 6px;
+  font-size: .88rem;
+}
+
+
+/* =====================================
+   HORIZONTAL SCROLL CONTAINER
+===================================== */
+
+.deck {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.deck-stage {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  width: 100%;
+  height: 440px;
+
+  padding: 20px max(
+    calc((100% - 250px) / 2),
+    20px
+  );
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  perspective: 1200px;
+  transform-style: preserve-3d;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  -webkit-overflow-scrolling: touch;
+
+  cursor: grab;
+
+  scrollbar-width: thin;
+  scrollbar-color: #b88a45 transparent;
+
+  /* Allow both horizontal and vertical touch gestures */
+  touch-action: pan-x pan-y;
+}
+
+.deck-stage.dragging {
+  cursor: grabbing;
+
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+/* Scrollbar */
+
+.deck-stage::-webkit-scrollbar {
+  height: 5px;
+}
+
+.deck-stage::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.deck-stage::-webkit-scrollbar-thumb {
+  background: #b88a45;
+  border-radius: 10px;
+}
+
+
+/* =====================================
+   PRODUCT CARD
+===================================== */
+
+.deck-card {
+  position: relative;
+
+  flex: 0 0 250px;
+
+  width: 250px;
+  height: 375px;
+
+  display: flex;
+  flex-direction: column;
+
+  flex-shrink: 0;
+
+  background: #fff;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  scroll-snap-align: center;
+
+  transform:
+    perspective(1200px)
+    rotateY(-25deg)
+    scale(.88)
+    translateZ(-35px);
+
+  opacity: .78;
+
+  box-shadow:
+    0 12px 25px rgba(60,40,10,.17);
+
+  transition:
+    transform .45s cubic-bezier(.22,.8,.24,1),
+    opacity .4s ease,
+    box-shadow .4s ease;
+}
+
+/* Centre card */
+
+.deck-card.is-active {
+  transform:
+    perspective(1200px)
+    rotateY(0deg)
+    scale(1)
+    translateZ(0);
+
+  opacity: 1;
+
+  z-index: 5;
+
+  box-shadow:
+    0 22px 42px rgba(60,40,10,.28),
+    0 5px 14px rgba(60,40,10,.12);
+}
+
+/* Left card */
+
+.deck-card.is-left {
+  transform:
+    perspective(1200px)
+    rotateY(25deg)
+    scale(.88)
+    translateZ(-35px);
+}
+
+/* Right card */
+
+.deck-card.is-right {
+  transform:
+    perspective(1200px)
+    rotateY(-25deg)
+    scale(.88)
+    translateZ(-35px);
+}
+
+
+/* =====================================
+   PRODUCT IMAGE
+===================================== */
+
+.deck-img {
+  position: relative;
+
+  flex: 1 1 auto;
+  min-height: 0;
+
+  background: #f6f2e7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+}
+
+.deck-img img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  pointer-events: none;
+  user-select: none;
+
+  -webkit-user-drag: none;
+}
+
+/* Discount badge */
+
+.deck-badge {
+  position: absolute;
+
+  top: 10px;
+  left: 10px;
+
+  z-index: 2;
+
+  background: #d9b583;
+  color: #1a1205;
+
+  font-size: .65rem;
+  font-weight: 600;
+
+  letter-spacing: .04em;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+}
+
+
+/* =====================================
+   PRODUCT INFORMATION
+===================================== */
+
+.deck-info {
+  flex: 0 0 auto;
+
+  padding: 10px 14px 13px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  background: #fff;
+
+  min-width: 0;
+}
+
+.deck-cat {
+  font-size: .61rem;
+
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+
+  color: #a07a3d;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deck-info h3 {
+  font-weight: 500;
+
+  font-size: .96rem;
+  line-height: 1.25;
+
+  color: #16130e;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deck-price {
+  display: flex;
+  align-items: baseline;
+
+  gap: 9px;
+
+  line-height: 1.3;
+}
+
+.deck-price strong {
+  font-size: 1.12rem;
+  font-weight: 600;
+
+  color: #16130e;
+}
+
+.deck-price s {
+  color: #8b8370;
+  font-size: .8rem;
+}
+
+.deck-rating {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  font-size: .78rem;
+  color: #c28a2c;
+}
+
+.deck-rating b {
+  color: #16130e;
+  font-weight: 500;
+}
+
+.deck-rating em {
+  color: #8b8370;
+  font-style: normal;
+}
+
+
+/* =====================================
+   BUY BUTTON
+===================================== */
+
+.deck-buy {
+  margin-top: 5px;
+
+  width: 100%;
+
+  padding: 10px;
+
+  border-radius: 999px;
+  border: 0;
+
+  cursor: pointer;
+
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 600;
+
+  letter-spacing: .06em;
+
+  color: #1a1205;
+
+  background: linear-gradient(
+    135deg,
+    #ecd3a3,
+    #d9b583 55%,
+    #c79d5f
+  );
+
+  box-shadow:
+    0 5px 12px rgba(201,157,95,.35);
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+.deck-buy:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 18px rgba(201,157,95,.45);
+}
+
+.deck-buy:active {
+  transform: translateY(0);
+}
+
+.deck-buy:focus-visible {
+  outline: 2px solid #16130e;
+  outline-offset: 3px;
+}
+
+
+/* =====================================
+   PRODUCT INDICATORS
+===================================== */
+
+.deck-dots {
+  display: flex;
+  justify-content: center;
+
+  gap: 2px;
+
+  margin-top: 8px;
+}
+
+.dot {
+  background: none;
+  border: 0;
+
+  padding: 10px 5px;
+
+  cursor: pointer;
+}
+
+.dot span {
+  display: block;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 999px;
+
+  background: #c9b998;
+
+  transition:
+    width .4s,
+    background .4s;
+}
+
+.dot.is-active span {
+  width: 27px;
+  background: #b88a45;
+}
+
+.dot:focus-visible {
+  outline: 2px solid #b88a45;
+  border-radius: 8px;
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+
+  .deck-stage {
+    height: 420px;
+    gap: 18px;
+
+    padding-left: max(
+      calc((100% - 235px) / 2),
+      20px
+    );
+
+    padding-right: max(
+      calc((100% - 235px) / 2),
+      20px
+    );
+  }
+
+  .deck-card {
+    flex-basis: 235px;
+    width: 235px;
+    height: 350px;
+  }
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+  .deck-section {
+    padding: 32px 0 25px;
+  }
+
+  .deck-head {
+    margin-bottom: 10px;
+  }
+
+  .deck-title {
+    font-size: 25px;
+  }
+
+  .deck-sub {
+    font-size: .82rem;
+  }
+
+  .deck-stage {
+    height: 405px;
+
+    gap: 14px;
+
+    padding: 15px max(
+      calc((100% - min(76vw, 270px)) / 2),
+      12px
+    );
+
+    scroll-snap-type: x mandatory;
+  }
+
+  .deck-card {
+    flex: 0 0 min(76vw, 270px);
+
+    width: min(76vw, 270px);
+    height: 365px;
+
+    border-radius: 16px;
+  }
+
+  .deck-card.is-left {
+    transform:
+      perspective(1000px)
+      rotateY(18deg)
+      scale(.91)
+      translateZ(-20px);
+  }
+
+  .deck-card.is-right {
+    transform:
+      perspective(1000px)
+      rotateY(-18deg)
+      scale(.91)
+      translateZ(-20px);
+  }
+
+  .deck-img {
+    padding: 10px;
+  }
+
+  .deck-info {
+    padding: 9px 12px 12px;
+    gap: 3px;
+  }
+
+  .deck-info h3 {
+    font-size: .91rem;
+  }
+
+  .deck-price strong {
+    font-size: 1.05rem;
+  }
+
+  .deck-buy {
+    padding: 9px;
+    font-size: .74rem;
+  }
+
+}
+
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 360px) {
+
+  .deck-stage {
+    height: 385px;
+  }
+
+  .deck-card {
+    height: 350px;
+  }
+
+  .deck-info {
+    padding: 8px 10px 10px;
+  }
+
+  .deck-title {
+    font-size: 22px;
+  }
+
+}
+
+
+/* =====================================
+   ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .deck-card,
+  .deck-buy,
+  .dot span {
+    transition-duration: .01s;
+  }
+
+}

@@ -1,15 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-
-const products = [
-  { name: "Classic Black", img: "/images/p-black.jpg" },
-  { name: "Navy Blue", img: "/images/p-navy.jpg" },
-  { name: "Grey Melange", img: "/images/p-grey.jpg" },
-  { name: "Olive Green", img: "/images/p-olive.jpg" },
-  { name: "Print Series", img: "/images/p-camo.jpg" },
-  { name: "Print Series", img: "/images/p-geo.jpg" },
-  { name: "Print Series", img: "/images/p-geo1.jpg" },
-];
+import { useEffect, useState } from "react";
+import DeckCarousel from "../components/DeckCarousel";
+import { products } from "../data/products";
 
 const features = [
   { title: "Premium cotton blend", text: "Soft on skin", d: "M12 20c-4 0-7-3-7-6s3-5 6-5c0-3 2-5 5-5s6 2 6 5c0 1-.3 2-1 3 2 1 3 3 3 5 0 2-2 4-5 4h-7z" },
@@ -22,11 +14,16 @@ const Svg = ({ children, size = 22 }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
 );
 
+// Called with the product id when the user clicks "Buy Now".
+// Replace the body with your cart logic or router.push(`/product/${productId}`).
+function handleBuyNow(productId) {
+  const product = products.find((p) => p.id === productId);
+  console.log("Buy Now:", product);
+  alert(`Buy Now clicked: ${product?.name} (${productId})`);
+}
+
 export default function Home() {
-  const track = useRef(null);
   const [scrolled, setScrolled] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const drag = useRef({ active: false, startX: 0, startLeft: 0 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -34,29 +31,6 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const scroll = (dir) => track.current?.scrollBy({ left: dir * 480, behavior: "smooth" });
-
-  // Mouse drag-to-scroll (touch devices use native swipe)
-  const onPointerDown = (e) => {
-    if (e.pointerType !== "mouse") return;
-    const el = track.current;
-    drag.current = { active: true, startX: e.clientX, startLeft: el.scrollLeft };
-    el.setPointerCapture(e.pointerId);
-    setDragging(true);
-  };
-
-  const onPointerMove = (e) => {
-    if (!drag.current.active) return;
-    track.current.scrollLeft = drag.current.startLeft - (e.clientX - drag.current.startX);
-  };
-
-  const endDrag = (e) => {
-    if (!drag.current.active) return;
-    drag.current.active = false;
-    track.current?.releasePointerCapture?.(e.pointerId);
-    setDragging(false);
-  };
 
   return (
     <>
@@ -97,32 +71,15 @@ export default function Home() {
         ))}
       </section>
 
-      <section id="shop" className="collection">
-        <div className="row">
-          <h2>Our Underwear Collection</h2>
-          <a href="#shop">View All →</a>
-        </div>
-        <div className="carousel">
-          <button className="arrow left" onClick={() => scroll(-1)} aria-label="Previous">‹</button>
-          <div
-            className={`track ${dragging ? "dragging" : ""}`}
-            ref={track}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            onPointerLeave={endDrag}
-          >
-            {products.map((p, i) => (
-              <article key={i} className="card">
-                <img src={p.img} alt={p.name} draggable={false} />
-                <h3>{p.name}</h3>
-              </article>
-            ))}
-          </div>
-          <button className="arrow right" onClick={() => scroll(1)} aria-label="Next">›</button>
-        </div>
-      </section>
+      <div id="shop">
+        <DeckCarousel
+          products={products}
+          eyebrow="Valtoro"
+          title="Our Underwear Collection"
+          subtitle="Swipe, drag or use the arrows to explore"
+          onBuyNow={handleBuyNow}
+        />
+      </div>
 
       <section id="about" className="more">
         <img className="box" src="/images/box.jpg" alt="Valtoro gift box with three boxer briefs" />
