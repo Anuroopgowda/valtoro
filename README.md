@@ -4,6 +4,8 @@
 npm install
 npm run dev     # http://localhost:3000
 
+The shop loads products from the API in `valtoro_backend` (`GET /api/products` on port 8000). Start that before the shop list will appear. Product photos stay in `public/images`.
+
 ## Add your photos
 Put the hero photo at public/images/hero.jpg (a gradient shows until you do).
 

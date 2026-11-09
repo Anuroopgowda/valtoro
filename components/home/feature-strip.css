@@ -1,0 +1,10 @@
+.features{display:flex;justify-content:center;flex-wrap:wrap;padding:1.6vw 6vw;background:#0f0f0f;min-height:5.1vw}
+.feature{display:flex;align-items:center;gap:1vw;padding:0 3.4vw;border-right:1px solid #3a3a3a}
+.feature:last-child{border:0}
+.feature strong{display:block;font-weight:400;font-size:max(11px,.8vw);letter-spacing:.06em;text-transform:uppercase}
+.feature span{font-size:max(12px,.85vw);color:#b5ab99}
+
+@media(max-width:900px){
+  .features{gap:18px;padding:22px 20px}
+  .feature{border:0;padding:0 10px}
+}

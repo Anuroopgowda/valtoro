@@ -1,0 +1,13 @@
+.more{display:flex;align-items:center;min-height:19.2vw;background:linear-gradient(90deg,#171512,#0a0908);overflow:hidden}
+.more .box{width:61.5vw;height:19.2vw;object-fit:cover;object-position:left center;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.more-text{flex:1;text-align:center;padding-right:3vw}
+.more-text h2{font-weight:400;letter-spacing:.3em;font-size:clamp(18px,1.7vw,28px);line-height:1.5;padding-bottom:1.2vw;margin-bottom:1.6vw;border-bottom:1px solid #fff6;display:inline-block}
+.btn-outline{display:block;width:fit-content;margin:0 auto;border:1px solid var(--gold);padding:.8vw 2vw;border-radius:999px;font-size:max(13px,.95vw)}
+
+@media(max-width:900px){
+  .more{flex-direction:column;min-height:0;padding-bottom:28px}
+  .more .box{width:100%;height:auto;aspect-ratio:885/289;-webkit-mask-image:none;mask-image:none}
+  .more-text{padding:20px}
+  .more-text h2{font-size:20px;padding-bottom:14px;margin-bottom:18px}
+  .btn-outline{padding:11px 26px;font-size:14px}
+}

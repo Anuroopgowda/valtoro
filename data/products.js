@@ -1,4 +1,4 @@
-// Add, remove or reorder products here – the carousel adapts automatically.
+// Snapshot used to seed Mongo. The shop reads GET /api/products, not this file.
 // Discount % is calculated from price and originalPrice (leave originalPrice out for no discount).
 export const products = [
   { id: "vt-001", name: "Classic Black",       image: "/images/p-black.jpg", price: 499, originalPrice: 799,  rating: 4.7, reviews: 312, category: "Everyday" },

@@ -597,3 +597,9 @@
   }
 
 }
+
+.shop-status {
+  text-align: center;
+  padding: 48px 20px 56px;
+  color: #d9b583;
+}
