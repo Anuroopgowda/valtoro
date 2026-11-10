@@ -1,9 +1,11 @@
 :root{--black:#0c0c0c;--gold:#d9b583;--cream:#f8f4ec;--text:#f1ece1}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text)}
+body{background:var(--black);color:var(--text);font-family:"Jost","Avenir Next",Avenir,Arial,sans-serif}
 a{color:inherit;text-decoration:none}
 button{background:none;border:0;color:inherit;cursor:pointer;font:inherit;display:grid;place-items:center}
 img{display:block;max-width:100%}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.inventory-entry{position:fixed;right:18px;bottom:18px;z-index:12;background:#171719;color:#d9b583;border:1px solid #d9b58355;padding:9px 13px;border-radius:4px;font-size:11px;letter-spacing:.04em;box-shadow:0 4px 18px #0004}
+.inventory-entry:hover{background:#292821}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

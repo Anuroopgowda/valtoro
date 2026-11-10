@@ -1,8 +1,5 @@
-import { Jost } from "next/font/google";
 import "./globals.css";
 import VisitTracker from "../components/layout/VisitTracker";
-
-const jost = Jost({ subsets: ["latin"], weight: ["300", "400", "500", "600"] });
 
 export const metadata = {
   title: "Valtoro Underwear | Comfort, Confidence, Everyday",
@@ -12,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={jost.className}>
+      <body>
         <VisitTracker />
         {children}
       </body>
